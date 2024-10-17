@@ -27,7 +27,11 @@
                             >
                                 <span
                                     className="text-sm text-textSubtle font-medium"
-                                    >Select Category</span
+                                    >{{
+                                        category === ""
+                                            ? "Select Category"
+                                            : category
+                                    }}</span
                                 >
                                 <ChevronRight color="#6EC2A8" />
                             </div>
@@ -107,6 +111,9 @@
 import { ArrowLeft } from "lucide-vue-next";
 import { CircleHelp } from "lucide-vue-next";
 import { ChevronRight } from "lucide-vue-next";
+import { mapGetters } from "vuex";
+
+import { v4 as uuidv4 } from "uuid";
 
 export default {
     components: { ArrowLeft, CircleHelp, ChevronRight },
@@ -115,15 +122,29 @@ export default {
             category: "",
             budget: "",
             type: "income",
-            date: "",
+            date: null,
         };
     },
     methods: {
         handleSubmit() {
-            console.log("budget:", this.budget);
-            console.log("type:", this.type);
-            console.log("date:", this.date);
+            const newExpense = {
+                id: uuidv4(),
+                category: this.category,
+                budget: this.budget,
+                type: this.type,
+                date: this.date,
+            };
+            console.log(newExpense);
+            this.$store.dispatch("addExpense", { newExpense: newExpense });
+            this.$router.push("/");
         },
+    },
+    computed: {
+        ...mapGetters(["chosenCategory"]),
+    },
+    mounted() {
+        this.category = this.$store.getters.chosenCategory;
+        console.log(this.category);
     },
 };
 </script>

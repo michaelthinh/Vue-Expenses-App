@@ -15,6 +15,11 @@
         <div className="mt-8">
             <button
                 className="relative w-full border rounded-lg h-[50px] py-2 px-4 bg-primary text-sm text-white font-semibold"
+                @click="
+                    () => {
+                        this.$router.push('/set-goal');
+                    }
+                "
             >
                 Select
             </button>

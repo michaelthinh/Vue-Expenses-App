@@ -5,22 +5,48 @@
         <div
             className="w-[50px] h-[50px] bg-yellow-50 flex justify-center items-center rounded-xl"
         >
-            <Dumbbell />
+            <Dumbbell v-if="history.category === 'gym'" />
+            <Ticket v-else-if="history.category === 'tickets'" />
+            <Shirt v-else-if="history.category === 'clothes'" />
+            <Apple v-else-if="history.category === 'food'" />
+            <Plane v-else-if="history.category === 'travel'" />
+            <TrainTrack v-else />
         </div>
         <div className="ml-3 flex justify-between w-4/5">
             <div className="flex flex-col justify-center">
-                <span className="text-base font-semibold">Sport</span>
+                <span className="text-base font-semibold">{{
+                    history.category
+                }}</span>
                 <span className="text-[10px] font-semibold">Gymnast</span>
             </div>
-            <div><span className="font-bold">- $30.00</span></div>
+            <div>
+                <span className="font-bold"
+                    >{{ history.type === "outcome" ? "- " : ""
+                    }}{{ history.budget }}$</span
+                >
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import { Dumbbell } from "lucide-vue-next";
+import { Ticket } from "lucide-vue-next";
+import { Shirt } from "lucide-vue-next";
+import { Apple } from "lucide-vue-next";
+import { Plane } from "lucide-vue-next";
+import { TrainTrack } from "lucide-vue-next";
 export default {
-    components: { Dumbbell },
+    props: ["history"],
+    components: {
+        Dumbbell,
+        Ticket,
+        Shirt,
+        Apple,
+        Plane,
+        TrainTrack,
+    },
+    computed: {},
 };
 </script>
 

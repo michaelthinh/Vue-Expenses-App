@@ -3,6 +3,8 @@ import "./style.css";
 import App from "./App.vue";
 import router from "./router/router";
 
+import store from "./store";
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -21,5 +23,7 @@ router.beforeEach((to, from, next) => {
 });
 
 app.use(router);
+
+app.use(store);
 
 app.mount("#app");

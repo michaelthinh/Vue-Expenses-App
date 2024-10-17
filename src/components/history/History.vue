@@ -12,14 +12,25 @@
             </div>
         </div>
         <!-- History -->
-        <history-item></history-item>
+        <history-item
+            v-for="history in histories"
+            :key="history.id"
+            :history="history"
+        ></history-item>
     </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import HistoryItem from "./HistoryItem.vue";
 export default {
     components: { "history-item": HistoryItem },
+    computed: {
+        ...mapGetters(["histories"]),
+    },
+    mounted() {
+        console.log(this.$store.getters.histories);
+    },
 };
 </script>
 

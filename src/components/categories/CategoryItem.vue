@@ -2,6 +2,7 @@
     <label
         :for="category.id"
         className="mt-4 mb-2  flex items-center cursor-pointer rounded-xl overflow-hidden"
+        @click="setCategory({ value: category.id })"
     >
         <div
             className="w-[50px] h-[50px] flex justify-center items-center rounded-xl"
@@ -29,7 +30,7 @@
                 <label
                     :for="category.id"
                     :className="
-                        isCheck === category.id
+                        chosenCategory === category.id
                             ? 'flex items-center justify-center w-6 h-6 rounded-full border-2 border-gray-400 peer-checked:bg-primary peer-checked:border-primary'
                             : 'flex items-center justify-center w-6 h-6 rounded-full border-2 border-gray-400 '
                     "
@@ -55,6 +56,8 @@ import { Shirt } from "lucide-vue-next";
 import { Apple } from "lucide-vue-next";
 import { Plane } from "lucide-vue-next";
 import { TrainTrack } from "lucide-vue-next";
+import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default {
     components: {
         Dumbbell,
@@ -64,10 +67,16 @@ export default {
         Plane,
         TrainTrack,
     },
-    props: ["category", "isChecked"],
-
-    emits: ["chooseCategory"],
-    methods: {},
+    props: ["category", "chosen"],
+    computed: {
+        ...mapGetters(["chosenCategory"]),
+    },
+    methods: {
+        ...mapActions(["setCategory"]),
+        handleClick() {
+            console.log(chosenCategory);
+        },
+    },
 };
 </script>
 
