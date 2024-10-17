@@ -1,5 +1,5 @@
 <template>
-    <div className="px-6 overflow-y-auto">
+    <div className="px-6 h-[calc(100%-50px)] overflow-y-auto">
         <!-- Title -->
         <div className="mb-3 font-semibold"><span>My Expenses App</span></div>
         <!-- User Info / Weekly -->
@@ -30,12 +30,12 @@
         <!-- CTA Buttons -->
         <div className="mt-6 flex justify-center gap-4">
             <button
-                className="px-3 py-1 bg-primaryButton text-sm rounded-md font-medium text-white"
+                className="px-3 py-1 bg-primary text-sm rounded-md font-medium text-white"
             >
                 Spendings
             </button>
             <button
-                className="px-3 py-1 bg-secondaryButton text-sm rounded-md font-medium text-black"
+                className="px-3 py-1 bg-secondary text-sm rounded-md font-medium text-black"
             >
                 Income
             </button>

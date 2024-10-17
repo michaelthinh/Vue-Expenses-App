@@ -13,13 +13,6 @@
         </div>
         <!-- History -->
         <history-item></history-item>
-        <history-item></history-item>
-        <history-item></history-item>
-        <history-item></history-item>
-        <history-item></history-item>
-        <history-item></history-item>
-        <history-item></history-item>
-        <history-item></history-item>
     </div>
 </template>
 

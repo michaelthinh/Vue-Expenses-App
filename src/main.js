@@ -13,8 +13,13 @@ library.add(faChevronDown, faPlus, faDumbbell);
 
 const app = createApp(App);
 
-app.use(router);
-
 app.component("font-awesome-icon", FontAwesomeIcon);
+
+router.beforeEach((to, from, next) => {
+    console.log(`Navigating to ${to.path}`);
+    next();
+});
+
+app.use(router);
 
 app.mount("#app");

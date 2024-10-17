@@ -4,8 +4,8 @@ export default {
     theme: {
         extend: {
             colors: {
-                primaryButton: "#6EC2A8",
-                secondaryButton: "#CCCCCC",
+                primary: "#6EC2A8",
+                secondary: "#CCCCCC",
                 textPrimary: "#2B2B2B",
                 textSubtle: "#A9A9A9",
             },
