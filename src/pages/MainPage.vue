@@ -30,22 +30,35 @@
         <!-- CTA Buttons -->
         <div className="mt-6 flex justify-center gap-4">
             <button
-                className="px-3 py-1 bg-primary text-sm rounded-md font-medium text-white"
+                :className="
+                    isActive === 'spendings'
+                        ? 'px-3 py-1  text-sm rounded-md font-medium text-white bg-primary'
+                        : 'px-3 py-1 text-sm rounded-md font-medium text-black bg-secondary'
+                "
+                @click="toggle('spendings')"
             >
                 Spendings
             </button>
             <button
-                className="px-3 py-1 bg-secondary text-sm rounded-md font-medium text-black"
+                :className="
+                    isActive === 'incomes'
+                        ? 'px-3 py-1  text-sm rounded-md font-medium text-white bg-primary'
+                        : 'px-3 py-1 text-sm rounded-md font-medium text-black bg-secondary'
+                "
+                @click="toggle('incomes')"
             >
                 Income
             </button>
         </div>
         <!-- Total Spending/ Income -->
         <div className="w-full mt-3 text-center font-semibold text-textSubtle">
-            <span>Total Spending</span>
+            <span
+                >Total
+                {{ isActive === "spendings" ? "Spendings" : "Incomes" }}</span
+            >
         </div>
         <div className="mt-4 text-center text-3xl font-regular">
-            ${{ spendings }}.00
+            ${{ isActive === "spendings" ? spendings : incomes }}.00
         </div>
         <!-- Chart -->
         <!-- Transaction History -->
@@ -54,12 +67,27 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex/dist/vuex.cjs.js";
 import History from "../components/history/History.vue";
 export default {
     components: { History },
-    computed: {
-        ...mapGetters(["spendings"]),
+    data() {
+        return {
+            spendings: 0,
+            incomes: 0,
+            isActive: "spendings",
+        };
+    },
+    computed() {
+        return;
+    },
+    methods: {
+        toggle(value) {
+            this.isActive = value;
+        },
+    },
+    beforeMount() {
+        this.spendings = this.$store.getters.spendings;
+        this.incomes = this.$store.getters.incomes;
     },
 };
 </script>

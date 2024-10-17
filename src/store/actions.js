@@ -5,4 +5,7 @@ export default {
     addExpense(context, payload) {
         context.commit("addExpense", payload);
     },
+    deleteExpense(context, payload) {
+        context.commit("deleteExpense", payload);
+    },
 };

@@ -1,6 +1,7 @@
 <template>
     <div
         className="mt-4 mb-2  flex items-center cursor-pointer rounded-xl overflow-hidden"
+        @click="handleChoose(history.id)"
     >
         <div
             className="w-[50px] h-[50px] bg-yellow-50 flex justify-center items-center rounded-xl"
@@ -46,7 +47,11 @@ export default {
         Plane,
         TrainTrack,
     },
-    computed: {},
+    methods: {
+        handleChoose(id) {
+            this.$router.push("/detail/" + id);
+        },
+    },
 };
 </script>
 
