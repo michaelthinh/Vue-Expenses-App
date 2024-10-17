@@ -4,34 +4,36 @@
         <div className="mb-6 font-semibold">
             <div className="flex items-center gap-3">
                 <div className="cursor-pointer">
-                    <ArrowLeft @click="$router.back()" />
+                    <router-link to="/"><ArrowLeft /></router-link>
                 </div>
                 <span>Set Goal</span>
             </div>
         </div>
         <form @submit.prevent="handleSubmit">
             <div className="mb-8">
-                <div
-                    className="relative w-full border rounded-lg h-[50px] py-2 px-4 border-primary cursor-pointer"
-                >
-                    <label
-                        for=""
-                        className="absolute left-[16px] top-[-14px] px-1 bg-white text-sm text-primary font-semibold"
-                        >Category</label
+                <router-link to="/set-goal/choose-category">
+                    <div
+                        className="relative w-full border rounded-lg h-[50px] py-2 px-4 border-primary cursor-pointer"
                     >
-                    <div className="w-full h-full flex items-center">
-                        <CircleHelp color="#6EC2A8" />
-                        <div
-                            className="ml-4 w-full flex justify-between items-center"
+                        <label
+                            for=""
+                            className="absolute left-[16px] top-[-14px] px-1 bg-white text-sm text-primary font-semibold"
+                            >Category</label
                         >
-                            <span
-                                className="text-sm text-textSubtle font-medium"
-                                >Select Category</span
+                        <div className="w-full h-full flex items-center">
+                            <CircleHelp color="#6EC2A8" />
+                            <div
+                                className="ml-4 w-full flex justify-between items-center"
                             >
-                            <ChevronRight color="#6EC2A8" />
+                                <span
+                                    className="text-sm text-textSubtle font-medium"
+                                    >Select Category</span
+                                >
+                                <ChevronRight color="#6EC2A8" />
+                            </div>
                         </div>
                     </div>
-                </div>
+                </router-link>
             </div>
             <div className="mb-8">
                 <div
