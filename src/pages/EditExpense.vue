@@ -1,93 +1,111 @@
 <template>
-    <div className="px-6 h-[calc(100%-50px)] overflow-y-auto">
+    <div class="px-6 h-[calc(100%-50px)] overflow-y-auto">
         <!-- Title -->
-        <div className="mb-6 font-semibold">
-            <div className="flex items-center gap-3">
-                <div className="cursor-pointer">
+        <div class="mb-6 font-semibold">
+            <div class="flex items-center gap-3">
+                <div class="cursor-pointer">
                     <router-link to="/"><ArrowLeft /></router-link>
                 </div>
-                <span>Set Goal</span>
+                <span>Edit Expense</span>
             </div>
         </div>
+
         <form @submit.prevent="handleSubmit">
-            <div className="mb-8">
+            <!-- Category -->
+            <div class="mb-8">
                 <div
-                    className="relative w-full border rounded-lg h-[50px] py-2 px-4 border-primary cursor-default"
+                    :class="[
+                        'relative w-full border rounded-lg h-[50px] py-2 px-4 cursor-default',
+                        categoryError ? 'border-red-500' : 'border-primary',
+                    ]"
                 >
                     <label
                         for="category"
-                        className="absolute left-[16px] top-[-14px] px-1 bg-white text-sm text-primary font-semibold"
+                        class="absolute left-[16px] top-[-14px] px-1 bg-white text-sm font-semibold"
                         >Category</label
                     >
-                    <div className="w-full h-full flex items-center">
+                    <div class="w-full h-full flex items-center">
                         <CircleHelp color="#6EC2A8" />
                         <div
-                            className="ml-4 w-full flex justify-between items-center"
+                            class="ml-4 w-full flex justify-between items-center"
                         >
-                            <span
-                                className="text-sm text-textSubtle font-medium"
-                                >{{
-                                    info.category === ""
-                                        ? "Select Category"
-                                        : uppercaseAll(info.category)
-                                }}</span
-                            >
+                            <span class="text-sm text-textSubtle font-medium">{{
+                                category === ""
+                                    ? "Select Category"
+                                    : uppercaseAll(category)
+                            }}</span>
                             <ChevronRight color="#6EC2A8" />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="mb-8">
+
+            <!-- Name -->
+            <div class="mb-8">
                 <div
-                    className="relative w-full border rounded-lg h-[50px] py-2 px-4 border-primary"
+                    :class="[
+                        'relative w-full border rounded-lg h-[50px] py-2 px-4',
+                        nameError ? 'border-red-500' : 'border-primary',
+                    ]"
+                    @focusout="validateField('name')"
                 >
                     <label
                         for="name"
-                        className="absolute left-[16px] top-[-14px] px-1 bg-white text-sm text-primary font-semibold"
+                        class="absolute left-[16px] top-[-14px] px-1 bg-white text-sm font-semibold"
                         >Name</label
                     >
                     <input
                         type="text"
                         name="name"
                         id="name"
-                        className="w-full h-full outline-transparent focus:ouline-transparent focus:border-none"
+                        class="w-full h-full outline-none"
                         placeholder="Name"
                         v-model="name"
+                        required
                     />
                 </div>
             </div>
-            <div className="mb-8">
+
+            <!-- Budget -->
+            <div class="mb-8">
                 <div
-                    className="relative w-full border rounded-lg h-[50px] py-2 px-4 border-primary"
+                    :class="[
+                        'relative w-full border rounded-lg h-[50px] py-2 px-4',
+                        budgetError ? 'border-red-500' : 'border-primary',
+                    ]"
+                    @focusout="validateField('budget')"
                 >
                     <label
                         for="budget"
-                        className="absolute left-[16px] top-[-14px] px-1 bg-white text-sm text-primary font-semibold"
+                        class="absolute left-[16px] top-[-14px] px-1 bg-white text-sm font-semibold"
                         >Budget</label
                     >
                     <input
                         type="number"
                         name="budget"
                         id="budget"
-                        className="w-full h-full outline-transparent focus:ouline-transparent focus:border-none"
+                        class="w-full h-full outline-none"
                         placeholder="Amount"
                         v-model="budget"
+                        required
                     />
                 </div>
             </div>
-            <div className="mb-8">
+
+            <!-- Type -->
+            <div class="mb-8">
                 <div
-                    className="relative w-full border rounded-lg h-[50px] py-2 px-4 border-primary"
+                    class="relative w-full border rounded-lg h-[50px] py-2 px-4 border-primary"
                 >
                     <label
                         for="moneyType"
-                        className="absolute left-[16px] top-[-14px] px-1 bg-white text-sm text-primary font-semibold"
+                        class="absolute left-[16px] top-[-14px] px-1 bg-white text-sm font-semibold"
                         >Type</label
                     >
                     <select
                         name="moneyType"
                         id="moneyType"
-                        className="mt-1 w-full border-none outline-none appearance-none "
+                        class="mt-1 w-full border-none outline-none appearance-none"
                         v-model="type"
                     >
                         <option value="income">Income</option>
@@ -95,28 +113,35 @@
                     </select>
                 </div>
             </div>
-            <div className="mb-8">
+
+            <!-- Date -->
+            <div class="mb-8">
                 <div
-                    className="relative w-full border rounded-lg h-[50px] py-2 px-4 border-primary"
+                    :class="[
+                        'relative w-full border rounded-lg h-[50px] py-2 px-4',
+                        dateError ? 'border-red-500' : 'border-primary',
+                    ]"
+                    @focusout="validateField('date')"
                 >
                     <label
                         for="date"
-                        className="absolute left-[16px] top-[-14px] px-1 bg-white text-sm text-primary font-semibold"
+                        class="absolute left-[16px] top-[-14px] px-1 bg-white text-sm font-semibold"
                         >Date</label
                     >
                     <input
                         type="date"
                         name="date"
                         id="date"
-                        className="w-full h-full outline-transparent focus:ouline-transparent focus:border-none"
+                        class="w-full h-full outline-none"
                         v-model="date"
-                        ref="dateRef"
+                        required
                     />
                 </div>
             </div>
-            <div className="mb-8">
+
+            <div class="mb-8">
                 <button
-                    className="relative w-full border rounded-lg h-[50px] py-2 px-4 bg-primary text-sm text-white font-semibold"
+                    class="relative w-full border rounded-lg h-[50px] py-2 px-4 bg-primary text-sm text-white font-semibold"
                 >
                     Edit Expense
                 </button>
@@ -126,25 +151,29 @@
 </template>
 
 <script>
-import { ArrowLeft } from "lucide-vue-next";
-import { CircleHelp } from "lucide-vue-next";
-import { ChevronRight } from "lucide-vue-next";
-import { mapGetters } from "vuex";
+import { ArrowLeft, CircleHelp, ChevronRight } from "lucide-vue-next";
 
 export default {
     components: { ArrowLeft, CircleHelp, ChevronRight },
     data() {
         return {
             category: "",
-            budget: 0,
             name: "",
+            budget: "",
             type: "income",
             date: null,
-            info: null,
+            // Errors for validation
+            categoryError: false,
+            nameError: false,
+            budgetError: false,
+            dateError: false,
         };
     },
     methods: {
         handleSubmit() {
+            // Validate all fields before submission
+            if (!this.validateAll()) return;
+
             const newExpense = {
                 id: this.$route.params.expenseId,
                 category: this.category,
@@ -153,22 +182,43 @@ export default {
                 type: this.type,
                 date: this.date,
             };
-            this.$store.dispatch("editExpense", { newExpense: newExpense });
+            this.$store.dispatch("editExpense", { newExpense });
             this.$router.push("/");
         },
         uppercaseAll(string) {
             return string.toUpperCase();
         },
-    },
-    computed: {
-        ...mapGetters(["chosenCategory"]),
+        validateField(field) {
+            // Individual field validation
+            if (
+                this[field] === "" ||
+                this[field] === null ||
+                this[field] === 0
+            ) {
+                this[`${field}Error`] = true;
+            } else {
+                this[`${field}Error`] = false;
+            }
+        },
+        validateAll() {
+            this.validateField("category");
+            this.validateField("name");
+            this.validateField("budget");
+            this.validateField("date");
+
+            // Return true if no errors exist
+            return (
+                !this.categoryError &&
+                !this.nameError &&
+                !this.budgetError &&
+                !this.dateError
+            );
+        },
     },
     beforeMount() {
-        let expenseInfo = null;
-        expenseInfo = this.$store.getters.expenseInfo(
+        const expenseInfo = this.$store.getters.expenseInfo(
             this.$route.params.expenseId
         );
-        this.info = expenseInfo;
         this.category = expenseInfo.category;
         this.budget = expenseInfo.budget;
         this.type = expenseInfo.type;
@@ -178,4 +228,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.border-red-500 {
+    border-color: red;
+}
+.border-primary {
+    border-color: #6ec2a8;
+}
+</style>
