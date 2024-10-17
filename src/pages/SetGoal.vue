@@ -30,7 +30,7 @@
                                     >{{
                                         category === ""
                                             ? "Select Category"
-                                            : category
+                                            : uppercaseAll(category)
                                     }}</span
                                 >
                                 <ChevronRight color="#6EC2A8" />
@@ -137,6 +137,9 @@ export default {
             console.log(newExpense);
             this.$store.dispatch("addExpense", { newExpense: newExpense });
             this.$router.push("/");
+        },
+        uppercaseAll(string) {
+            return string.toUpperCase();
         },
     },
     computed: {

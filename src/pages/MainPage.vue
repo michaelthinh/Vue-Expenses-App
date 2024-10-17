@@ -44,7 +44,9 @@
         <div className="w-full mt-3 text-center font-semibold text-textSubtle">
             <span>Total Spending</span>
         </div>
-        <div className="mt-4 text-center text-3xl font-regular">$607.00</div>
+        <div className="mt-4 text-center text-3xl font-regular">
+            ${{ spendings }}.00
+        </div>
         <!-- Chart -->
         <!-- Transaction History -->
         <history></history>
@@ -52,9 +54,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex/dist/vuex.cjs.js";
 import History from "../components/history/History.vue";
 export default {
     components: { History },
+    computed: {
+        ...mapGetters(["spendings"]),
+    },
 };
 </script>
 
