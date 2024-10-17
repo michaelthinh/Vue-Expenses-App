@@ -8,4 +8,11 @@ export default {
     deleteExpense(context, payload) {
         context.commit("deleteExpense", payload);
     },
+    editExpense(context, payload) {
+        context.commit("editExpense", payload);
+    },
+    initHistories(context) {
+        const histories = JSON.parse(localStorage.getItem("histories")) || [];
+        context.commit("setHistories", histories);
+    },
 };

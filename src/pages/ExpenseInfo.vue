@@ -6,7 +6,7 @@
                 <div className="cursor-pointer">
                     <router-link to="/"><arrow-left></arrow-left></router-link>
                 </div>
-                <span>Expense Info</span>
+                <span>{{ info.name }} </span>
             </div>
         </div>
         <!-- Category -->
@@ -15,6 +15,14 @@
             <div className="flex items-center">
                 <span className="font-bold mr-3">Category:</span>
                 {{ uppercaseAll(info.category) }}
+            </div>
+        </div>
+        <!-- Name -->
+        <div className="flex gap-4 mb-4 items-center text-lg">
+            <CircleDollarSign />
+            <div className="flex items-center">
+                <span className="font-bold mr-3">Expense Name:</span>
+                {{ info.name }}
             </div>
         </div>
         <!-- Budget -->
@@ -43,11 +51,7 @@
         <div className="mt-8">
             <button
                 className="relative w-full border rounded-lg h-[50px] py-2 px-4 bg-primary text-sm text-white font-semibold"
-                @click="
-                    () => {
-                        this.$router.push('/set-goal');
-                    }
-                "
+                @click="editExpense(info.id)"
             >
                 Edit Expense
             </button>
@@ -96,9 +100,11 @@ export default {
             this.$store.dispatch("deleteExpense", { id: id });
             this.$router.push("/");
         },
+        editExpense(id) {
+            this.$router.push("/edit/" + id);
+        },
     },
     beforeMount() {
-        console.log(this.$route.params.expenseId);
         let expenseInfo = null;
         expenseInfo = this.$store.getters.expenseInfo(
             this.$route.params.expenseId

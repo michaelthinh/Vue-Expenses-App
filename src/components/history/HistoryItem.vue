@@ -16,9 +16,11 @@
         <div className="ml-3 flex justify-between w-4/5">
             <div className="flex flex-col justify-center">
                 <span className="text-base font-semibold">{{
-                    history.category
+                    uppercaseFirst(history.category)
                 }}</span>
-                <span className="text-[10px] font-semibold">Gymnast</span>
+                <span className="text-[10px] font-semibold">{{
+                    uppercaseFirst(history.name)
+                }}</span>
             </div>
             <div>
                 <span className="font-bold"
@@ -50,6 +52,9 @@ export default {
     methods: {
         handleChoose(id) {
             this.$router.push("/detail/" + id);
+        },
+        uppercaseFirst(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
         },
     },
 };

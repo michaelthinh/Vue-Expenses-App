@@ -62,7 +62,16 @@
         </div>
         <!-- Chart -->
         <!-- Transaction History -->
-        <history></history>
+        <div
+            className="mt-10 text-center font-bold"
+            v-if="spendingHistory.length === 0 && incomeHistory.length === 0"
+        >
+            Maybe add something to manage your finance ?
+        </div>
+        <history
+            v-else
+            :data="isActive === 'spendings' ? spendingHistory : incomeHistory"
+        ></history>
     </div>
 </template>
 
@@ -75,6 +84,8 @@ export default {
             spendings: 0,
             incomes: 0,
             isActive: "spendings",
+            spendingHistory: [],
+            incomeHistory: [],
         };
     },
     computed() {
@@ -83,11 +94,20 @@ export default {
     methods: {
         toggle(value) {
             this.isActive = value;
+            if (this.isActive === "spendings") {
+                this.displayedHistory = this.$store.getters.spendingHistory;
+                console.log(this.displayedHistory);
+            } else {
+                this.displayedHistory = this.$store.getters.incomeHistory;
+                console.log(this.displayedHistory);
+            }
         },
     },
     beforeMount() {
         this.spendings = this.$store.getters.spendings;
         this.incomes = this.$store.getters.incomes;
+        this.spendingHistory = this.$store.getters.spendingHistory;
+        this.incomeHistory = this.$store.getters.incomeHistory;
     },
 };
 </script>

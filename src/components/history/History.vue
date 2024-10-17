@@ -13,7 +13,7 @@
         </div>
         <!-- History -->
         <history-item
-            v-for="history in histories"
+            v-for="history in data"
             :key="history.id"
             :history="history"
         ></history-item>
@@ -24,13 +24,13 @@
 import { mapGetters } from "vuex";
 import HistoryItem from "./HistoryItem.vue";
 export default {
+    props: ["data"],
     components: { "history-item": HistoryItem },
+
     computed: {
         ...mapGetters(["histories"]),
     },
-    mounted() {
-        console.log(this.$store.getters.histories);
-    },
+    mounted() {},
 };
 </script>
 

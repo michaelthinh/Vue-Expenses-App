@@ -3,7 +3,7 @@
         className="w-screen h-screen bg-yellow-100 flex items-center justify-center "
     >
         <div
-            className="h-screen w-screen sm:w-[350px] sm:h-[700px] bg-white pt-6 rounded-2xl overflow-hidden"
+            className="h-screen w-screen  bg-white pt-6 overflow-hidden sm:w-[350px] sm:h-[700px] sm:rounded-none"
         >
             <slot></slot>
             <tool-bar></tool-bar>

@@ -5,6 +5,18 @@ export default {
     histories(state) {
         return state.histories;
     },
+    spendingHistory(state) {
+        const renderedHistory = state.histories.filter(
+            (history) => history.type === "outcome"
+        );
+        return renderedHistory;
+    },
+    incomeHistory(state) {
+        const renderedHistory = state.histories.filter(
+            (history) => history.type === "income"
+        );
+        return renderedHistory;
+    },
     spendings(state) {
         let spendings = 0;
         state.histories.forEach((item) => {
